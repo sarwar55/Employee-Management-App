@@ -1,0 +1,46 @@
+CREATE SCHEMA employeedb;
+
+
+CREATE TABLE employeedb.employee (
+  empId int(11) NOT NULL,
+  name varchar(45) DEFAULT NULL,
+  gender enum('Male','Female') DEFAULT NULL,
+  salary double DEFAULT NULL,
+  PRIMARY KEY (empId)
+);
+
+
+
+CREATE TABLE employeedb.employmentperiod (
+  empId int(11) NOT NULL,
+  StartDate date DEFAULT NULL,
+  EndDate date DEFAULT NULL,
+  isActive tinyint(4) DEFAULT NULL,
+  PRIMARY KEY (empId),
+  KEY empId_idx (empId),
+  CONSTRAINT empId FOREIGN KEY (empId) REFERENCES employee (empId) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE employeedb.address (
+  empId int(11) NOT NULL,
+  city varchar(45) DEFAULT NULL,
+  country varchar(45) DEFAULT NULL,
+  postalcode int(11) DEFAULT NULL,
+  PRIMARY KEY (empId),
+  CONSTRAINT empid2 FOREIGN KEY (empId) REFERENCES employee (empId) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+
+CREATE TABLE employeedb.phonenumber (
+  empId int(11) NOT NULL,
+  areaCode varchar(45) DEFAULT NULL,
+  number varchar(45) DEFAULT NULL,
+  phoneNumbeId varchar(45) NOT NULL,
+  PRIMARY KEY (phoneNumbeId),
+  KEY empId_idx (empId),
+  CONSTRAINT empId1 FOREIGN KEY (empId) REFERENCES employee (empId) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+ALTER TABLE employeedb.phonenumber 
+CHANGE COLUMN phoneNumbeId phoneNumbeId INT NOT NULL AUTO_INCREMENT ;
+
